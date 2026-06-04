@@ -1,75 +1,84 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Alifah Syahab 🎂</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Ultah Alifah</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(180deg, #ffdle8, #ffc0cb, #ffe4f2);
-            overflow-x: hidden;
-            color: #fff;
-        }
-
-        .hero {
-            min-height: 100vh;
+            background-color: #0d1117;
+            color: #c9d1d9;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .container {
             text-align: center;
-            padding: 30px;
-            position: relative;
+            padding: 2rem;
+            background: rgba(22, 27, 34, 0.8);
+            border-radius: 16px;
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            width: 400px;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            transition: transform 0.5s ease;
         }
 
-        .hero h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 4rem;
-            margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            color: #fff;
+        h1 {
+            color: #58a6ff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
         }
 
-        .hero p {
-            max-width: 700px;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            color: #fff;
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #8b949e;
+            line-height: 1.5;
         }
 
-        /* Desain tombol musik kustom agar serasi dengan tema pink */
+        /* Desain Tombol Musik Terkini */
         .btn-music {
-            background: linear-gradient(135deg, #ff69b4, #ffb6c1);
+            background: linear-gradient(135deg, #1f6feb, #58a6ff);
             color: #ffffff;
             border: none;
-            padding: 14px 32px;
-            font-size: 1.1rem;
+            padding: 12px 28px;
+            font-size: 1rem;
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            z-index: 10;
         }
 
         .btn-music:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 6px 20px rgba(88, 166, 255, 0.6);
+            background: linear-gradient(135deg, #58a6ff, #1f6feb);
         }
 
-        /* Animasi gelombang suara halus */
+        .btn-music:active {
+            transform: translateY(1px);
+        }
+
+        /* Animasi Gelombang Musik Saat Berputar */
         .music-waves {
             display: none;
             justify-content: center;
@@ -82,7 +91,7 @@
         .wave {
             width: 4px;
             height: 5px;
-            background-color: #fff;
+            background-color: #58a6ff;
             border-radius: 2px;
         }
 
@@ -92,35 +101,50 @@
 
         .playing .wave:nth-child(2) { animation-delay: 0.2s; }
         .playing .wave:nth-child(3) { animation-delay: 0.4s; }
+        .playing .wave:nth-child(4) { animation-delay: 0.1s; }
+        .playing .wave:nth-child(5) { animation-delay: 0.3s; }
 
         @keyframes bounce {
             from { height: 5px; }
             to { height: 25px; }
         }
+
+        /* Dekorasi Background Partikel */
+        .bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <h1>Happy Birthday Alifah Syahab 🎂</h1>
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <h1>Ultah Alifah</h1>
         <p>🎵 "Do you think I have forgotten about you?" 🎵</p>
         
-        <!-- Tombol Musik -->
         <button class="btn-music" id="musicBtn" onclick="toggleMusic()">
             <span id="btnIcon">▶</span> <span id="btnText">Putar Musik</span>
         </button>
 
-        <!-- Mini Wave -->
         <div class="music-waves" id="waveContainer">
+            <div class="wave"></div>
+            <div class="wave"></div>
             <div class="wave"></div>
             <div class="wave"></div>
             <div class="wave"></div>
         </div>
     </div>
 
-    <!-- Sumber lagu About You - The 1975 -->
     <audio id="myAudio" loop>
         <source src="https://pub-c5e31b5cdafb419a86a69d5d340a9dac.r2.dev/The%201975%20-%20About%20You.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung pemutar musik ini.
     </audio>
 
     <script>
@@ -132,21 +156,60 @@
 
         function toggleMusic() {
             if (audio.paused) {
+                // Menjalankan musik
                 audio.play().then(() => {
                     btnIcon.innerText = "⏸";
                     btnText.innerText = "Jeda Musik";
                     waveContainer.style.display = "flex";
                     waveContainer.classList.add('playing');
                 }).catch((error) => {
-                    alert("Klik sekali lagi untuk memutar lagu!");
+                    alert("Gagal memutar musik secara otomatis. Silakan coba klik sekali lagi!");
+                    console.log("Playback diblokir oleh browser:", error);
                 });
             } else {
+                // Menjedakan musik
                 audio.pause();
                 btnIcon.innerText = "▶";
                 btnText.innerText = "Putar Musik";
                 waveContainer.classList.remove('playing');
             }
         }
+
+        // Efek Dekorasi Balon/Partikel Melayang Halus di Background
+        function createParticle() {
+            const container = document.getElementById('particles');
+            if(!container) return;
+            
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.bottom = '-10px';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.width = Math.random() * 8 + 4 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.backgroundColor = 'rgba(88, 166, 255, ' + Math.random() * 0.3 + ')';
+            particle.style.borderRadius = '50%';
+            particle.style.animation = `floatUp ${Math.random() * 5 + 5}s linear forwards`;
+            
+            container.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Jalankan efek dekorasi secara konstan
+        setInterval(createParticle, 300);
+
+        // CSS Animasi Tambahan untuk Partikel Bergerak ke Atas
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-105vh) translateX(${Math.random() * 50 - 25}px);
+                    opacity: 0;
+                }
+            }
+        `, styleSheet.cssRules.length);
     </script>
 
 </body>
